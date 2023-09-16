@@ -5,6 +5,11 @@
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
     /* Completeness */
+    "baseUrl": "./",
+    "paths": {
+      "*": ["src/*"]
+    },
+    "jsx": "react-native",
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   }
 }

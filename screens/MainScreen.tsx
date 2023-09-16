@@ -1,71 +1,55 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
-
-import {Section} from '../components/Section';
-import ConnectButton from '../components/ConnectButton';
-import AccountInfo from '../components/AccountInfo';
-import {
-  useAuthorization,
-  Account,
-} from '../components/providers/AuthorizationProvider';
-import {useConnection} from '../components/providers/ConnectionProvider';
-import DisconnectButton from '../components/DisconnectButton';
-import RequestAirdropButton from '../components/RequestAirdropButton';
-import SignMessageButton from '../components/SignMessageButton';
-import SignTransactionButton from '../components/SignTransactionButton';
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {View, Text, StyleSheet} from 'react-native';
+import CustomTabBar from './BottomBar';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import WalletCard from '../components/WalletCard';
 
 export default function MainScreen() {
-  const {connection} = useConnection();
-  const {selectedAccount} = useAuthorization();
-  const [balance, setBalance] = useState<number | null>(null);
-
-  const fetchAndUpdateBalance = useCallback(
-    async (account: Account) => {
-      console.log('Fetching balance for: ' + account.publicKey);
-      const fetchedBalance = await connection.getBalance(account.publicKey);
-      console.log('Balance fetched: ' + fetchedBalance);
-      setBalance(fetchedBalance);
-    },
-    [connection],
-  );
-
-  useEffect(() => {
-    if (!selectedAccount) {
-      return;
-    }
-    fetchAndUpdateBalance(selectedAccount);
-  }, [fetchAndUpdateBalance, selectedAccount]);
-
+  const Tab = createBottomTabNavigator();
   return (
     <>
-      <View style={styles.mainContainer}>
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-          {selectedAccount ? (
-            <>
-              <Section title="Sign a transaction">
-                <SignTransactionButton />
-              </Section>
-
-              <Section title="Sign a message">
-                <SignMessageButton />
-              </Section>
-            </>
-          ) : null}
-        </ScrollView>
-        {selectedAccount ? (
-          <AccountInfo
-            selectedAccount={selectedAccount}
-            balance={balance}
-            fetchAndUpdateBalance={fetchAndUpdateBalance}
+      <NavigationContainer>
+        <Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>
+          <Tab.Screen
+            name="Screen1"
+            component={Screen1}
+            options={{
+              tabBarLabel: 'Wallet',
+              headerShown: false,
+              tabBarIcon: ({color}) => (
+                <Icon name="wallet" size={24} color={color} />
+              ), // Specify the icon for this taba
+            }}
           />
-        ) : (
-          <ConnectButton title="Connect wallet" />
-        )}
-        <Text>Selected cluster: {connection.rpcEndpoint}</Text>
-      </View>
+          <Tab.Screen
+            name="Screen2"
+            component={Screen2}
+            options={{
+              tabBarLabel: 'Settings',
+              tabBarIcon: ({color}) => (
+                <Icon name="user-cog" size={24} color={color} />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
     </>
   );
 }
+
+const Screen1 = () => (
+  <View>
+    <WalletCard />
+  </View>
+);
+
+const Screen2 = () => (
+  <View>
+    <Text>Screen 2</Text>
+  </View>
+);
 
 const styles = StyleSheet.create({
   mainContainer: {
