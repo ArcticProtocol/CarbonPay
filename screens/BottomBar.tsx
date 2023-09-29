@@ -41,14 +41,14 @@ const CustomTabBar = ({state, descriptors, navigation}: BottomTabBarProps) => {
             {tabBarIcon &&
               tabBarIcon({
                 focused: isFocused,
-                color: isFocused ? Colors.element : 'black',
-                size: 30,
+                color: isFocused ? Colors.teritary : Colors.element,
+                size: 20,
               })}
             <Text
               style={{
-                color: isFocused ? Colors.element : 'black',
+                color: isFocused ? Colors.teritary : Colors.element,
                 fontSize: 12,
-                marginTop: 6,
+                marginTop: 4,
               }}>{`${label}`}</Text>
           </TouchableOpacity>
         );

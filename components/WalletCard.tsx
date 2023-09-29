@@ -1,22 +1,45 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
 import Colors from '../util/color';
+import Notifications from '../assets/icons/Notifications';
+import USDC from '../assets/icons/USDC';
+import Dai from '../assets/icons/Dai';
+import Solana from '../assets/icons/Solana';
 
 const WalletCard = () => {
   return (
     <>
       <View style={styles.card}>
-        <View style={{flex: 1}}>
-          <View style={styles.content}>
-            <View style={styles.iconsRow}>
-              <Icon name="notifications-circle" size={40} style={styles.icon} />
-            </View>
+        <View style={styles.amountRow}>
+          <Text style={styles.amountText}>$5990</Text>
+          <View style={styles.NotificationContainer}>
+            <Notifications height={24} width={24} color={'white'} />
           </View>
         </View>
-
-        <View style={styles.amountRow}>
-          <Text style={styles.amountText}>$500</Text>
+        <View style={styles.middleRow}>
+          <Text style={styles.middleText}>$SOl 2.34</Text>
+          <View style={styles.middleAvatars}>
+            <View>
+              <USDC height={28} width={28} />
+            </View>
+            <View
+              style={{
+                marginLeft: -12,
+              }}>
+              <Dai height={28} width={28} />
+            </View>
+            <View
+              style={{
+                marginLeft: -12,
+                backgroundColor: 'black',
+                borderRadius: 20,
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: 7,
+              }}>
+              <Solana height={16} width={16} />
+            </View>
+          </View>
         </View>
 
         <View style={styles.buttonRow}>
@@ -37,19 +60,26 @@ const WalletCard = () => {
 
 const styles = StyleSheet.create({
   txButton: {
-    color: 'black',
+    color: Colors.teritary,
     fontSize: 20,
     fontWeight: '600',
   },
   card: {
-    height: '55%',
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    padding: 4,
+    borderRadius: 20,
     overflow: 'hidden',
     display: 'flex',
-    backgroundColor: Colors.teritary,
+    backgroundColor: Colors.element,
     paddingHorizontal: 20,
+    paddingVertical: 14,
+  },
+  NotificationContainer: {
+    height: 32,
+    width: 30,
+    borderRadius: 20,
+    backgroundColor: Colors.teritary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 4,
   },
   content: {
     flex: 1,
@@ -65,30 +95,44 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   amountRow: {
-    alignItems: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   amountText: {
-    fontSize: 60,
-    fontWeight: 'bold',
+    fontSize: 40,
     color: Colors.background,
+    fontFamily: 'Rubik-Medium',
   },
   buttonRow: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'stretch',
-    marginTop: 10,
-    marginBottom: 30,
+    marginVertical: 20,
   },
   button: {
     flex: 1,
-    marginHorizontal: 6,
-    marginVertical: 4,
+    marginHorizontal: 8,
     backgroundColor: 'white',
     paddingHorizontal: 20,
     paddingVertical: 8,
-    borderRadius: 20,
+    borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  middleRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  middleText: {
+    fontSize: 16,
+    color: Colors.teritary,
+    fontFamily: 'Rubik-SemiBold',
+    marginTop: -8,
+  },
+  middleAvatars: {
+    flexDirection: 'row',
   },
 });
 
