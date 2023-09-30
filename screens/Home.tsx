@@ -2,6 +2,9 @@ import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import WalletCard from '../components/WalletCard';
 import {Text} from 'react-native';
+import OffsetCard from '../components/OffsetCard';
+import Colors from '../util/color';
+import Transactions from '../components/Transactions';
 
 const Home = () => {
   return (
@@ -11,6 +14,9 @@ const Home = () => {
         <Text style={styles.appName}>CarbonPay 🎉</Text>
       </View>
       <WalletCard />
+      <View style={styles.refiApps}></View>
+      <OffsetCard />
+      <Transactions />
     </View>
   );
 };
@@ -24,15 +30,18 @@ const styles = StyleSheet.create({
     fontFamily: 'Rubik-Bold',
   },
   appName: {
-    color: '#4F772D',
+    color: Colors.teritary,
     fontFamily: 'Rubik-Bold',
     fontSize: 22,
   },
   container: {
-    padding: 6,
+    padding: 8,
   },
   textContainer: {
     flexDirection: 'row',
     padding: 4,
+  },
+  refiApps: {
+    paddingVertical: 60,
   },
 });

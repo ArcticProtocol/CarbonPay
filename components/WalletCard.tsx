@@ -22,21 +22,10 @@ const WalletCard = () => {
             <View>
               <USDC height={28} width={28} />
             </View>
-            <View
-              style={{
-                marginLeft: -12,
-              }}>
+            <View style={styles.dai}>
               <Dai height={28} width={28} />
             </View>
-            <View
-              style={{
-                marginLeft: -12,
-                backgroundColor: 'black',
-                borderRadius: 20,
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: 7,
-              }}>
+            <View style={styles.solana}>
               <Solana height={16} width={16} />
             </View>
           </View>
@@ -63,6 +52,7 @@ const styles = StyleSheet.create({
     color: Colors.teritary,
     fontSize: 20,
     fontWeight: '600',
+    fontFamily: 'Rubik-Regular',
   },
   card: {
     borderRadius: 20,
@@ -111,12 +101,11 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   button: {
-    flex: 1,
     marginHorizontal: 8,
     backgroundColor: 'white',
+    paddingVertical: 4,
     paddingHorizontal: 20,
-    paddingVertical: 8,
-    borderRadius: 12,
+    borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -133,6 +122,17 @@ const styles = StyleSheet.create({
   },
   middleAvatars: {
     flexDirection: 'row',
+  },
+  dai: {
+    marginLeft: -12,
+  },
+  solana: {
+    marginLeft: -12,
+    backgroundColor: 'black',
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 8,
   },
 });
 
