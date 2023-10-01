@@ -1,14 +1,15 @@
-import {StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import React from 'react';
 import WalletCard from '../components/WalletCard';
 import {Text} from 'react-native';
 import OffsetCard from '../components/OffsetCard';
 import Colors from '../util/color';
 import Transactions from '../components/Transactions';
+import CollectedNFT from '../components/CollectedNFT';
 
 const Home = () => {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.textContainer}>
         <Text style={styles.greetingText}>Welcome to </Text>
         <Text style={styles.appName}>CarbonPay 🎉</Text>
@@ -17,7 +18,8 @@ const Home = () => {
       <View style={styles.refiApps}></View>
       <OffsetCard />
       <Transactions />
-    </View>
+      <CollectedNFT />
+    </ScrollView>
   );
 };
 
@@ -35,7 +37,8 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   container: {
-    padding: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
   },
   textContainer: {
     flexDirection: 'row',

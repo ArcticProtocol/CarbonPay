@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     heigh: 60,
     left: '20%', // Center the 50% width
     width: '60%', // 50% width
-    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background
+    backgroundColor: 'rgba(255, 255, 255, 1)', // Semi-transparent background
     borderRadius: 20, // Rounded corners
   },
   tab: {
