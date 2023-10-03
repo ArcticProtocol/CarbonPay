@@ -1,24 +1,36 @@
 import {ScrollView, StyleSheet, View} from 'react-native';
-import React from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import WalletCard from '../components/WalletCard';
 import {Text} from 'react-native';
 import OffsetCard from '../components/OffsetCard';
 import Colors from '../util/color';
 import Transactions from '../components/Transactions';
 import CollectedNFT from '../components/CollectedNFT';
+import {CustomBottomSheetView} from '../components/bottomSheet/BottomSheet';
 
 const Home = () => {
+  const [visible, setVisible] = useState(false);
+
+  const toggleBottomNavigationView = () => {
+    //Toggling the visibility state of the bottom sheet
+    setVisible(!visible);
+  };
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.textContainer}>
         <Text style={styles.greetingText}>Welcome to </Text>
         <Text style={styles.appName}>CarbonPay 🎉</Text>
       </View>
-      <WalletCard />
+      <WalletCard sendCta={toggleBottomNavigationView} />
       <View style={styles.refiApps}></View>
       <OffsetCard />
       <Transactions />
       <CollectedNFT />
+      <CustomBottomSheetView
+        visible={visible}
+        toggleBottomNavigationView={toggleBottomNavigationView}
+      />
     </ScrollView>
   );
 };

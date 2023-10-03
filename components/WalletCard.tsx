@@ -6,7 +6,12 @@ import USDC from '../assets/icons/USDC';
 import Dai from '../assets/icons/Dai';
 import Solana from '../assets/icons/Solana';
 
-const WalletCard = () => {
+type WalletCardParams = {
+  sendCta?: () => void;
+};
+
+const WalletCard = (params: WalletCardParams) => {
+  const {sendCta} = params;
   return (
     <>
       <View style={styles.card}>
@@ -32,7 +37,7 @@ const WalletCard = () => {
         </View>
 
         <View style={styles.buttonRow}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => sendCta?.()}>
             <Text style={styles.txButton}>Send</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}>
