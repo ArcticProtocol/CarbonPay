@@ -5,4 +5,5 @@ module.exports = {
       {unstable_transformProfile: 'hermes-stable'},
     ],
   ],
+  plugins: ['react-native-reanimated/plugin'],
 };
