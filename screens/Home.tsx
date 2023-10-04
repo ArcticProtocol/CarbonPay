@@ -7,6 +7,7 @@ import Colors from '../util/color';
 import Transactions from '../components/Transactions';
 import CollectedNFT from '../components/CollectedNFT';
 import {CustomBottomSheetView} from '../components/bottomSheet/BottomSheet';
+import {AppsView} from '../components/Apps';
 
 const Home = () => {
   const [visible, setVisible] = useState(false);
@@ -23,7 +24,10 @@ const Home = () => {
         <Text style={styles.appName}>CarbonPay 🎉</Text>
       </View>
       <WalletCard sendCta={toggleBottomNavigationView} />
-      <View style={styles.refiApps}></View>
+
+      <View style={styles.refiApps}>
+        <AppsView />
+      </View>
       <OffsetCard />
       <Transactions />
       <CollectedNFT />
@@ -57,6 +61,6 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   refiApps: {
-    paddingVertical: 60,
+    paddingVertical: 10,
   },
 });

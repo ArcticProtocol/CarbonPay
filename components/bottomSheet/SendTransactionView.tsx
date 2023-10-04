@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
 
   addressBar: {
     marginTop: 14,
-    fontSize: 20,
+    fontSize: 16,
     color: '#000',
   },
 
