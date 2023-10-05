@@ -3,6 +3,7 @@ import React from 'react';
 import {RootStackParamList} from '../types/navigation';
 import BottomTabNavigator from './BottomTabNavigation';
 import {CustomWebView} from '../components/CustomWebView';
+import Login from '../screens/Login';
 
 export default function StackNavigation() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -13,7 +14,7 @@ export default function StackNavigation() {
           backgroundColor: 'black',
         },
       }}
-      initialRouteName={'Root'}>
+      initialRouteName={'Login'}>
       <Stack.Screen
         name="Root"
         component={BottomTabNavigator}
@@ -24,6 +25,15 @@ export default function StackNavigation() {
         }}
       />
       <Stack.Screen name="WebView" component={CustomWebView} />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{
+          headerShown: false,
+          animation: 'default',
+          gestureEnabled: false,
+        }}
+      />
     </Stack.Navigator>
   );
 }

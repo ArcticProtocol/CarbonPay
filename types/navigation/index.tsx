@@ -7,7 +7,8 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
-  WebView :  undefined;
+  WebView: undefined;
+  Login: undefined;
 };
 
 export type RootTabParamList = {
