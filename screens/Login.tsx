@@ -1,16 +1,30 @@
 import {Image, Pressable, StatusBar, StyleSheet, View} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Text} from 'react-native';
 import Colors from '../util/color';
 import LinearGradient from 'react-native-linear-gradient';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = () => {
   const navigation = useNavigation();
   const navigateToSeed = async () => {
     navigation.navigate('Seed');
   };
+
+  const checkStorage = async () => {
+    const data = await AsyncStorage.getItem('@user_data');
+    console.log(data);
+
+    if (data) {
+      navigation.reset({index: 0, routes: [{name: 'Root'}]});
+    }
+    return;
+  };
+  useEffect(() => {
+    checkStorage();
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={'#59A759'} />

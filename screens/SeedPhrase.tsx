@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Pressable,
   StatusBar,
   StyleSheet,
@@ -13,10 +14,16 @@ import * as bip39 from 'bip39';
 import Copy from '../assets/icons/Copy';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {CheckBox} from 'react-native-btr';
+import {useStore} from '../store/store';
+import {Keypair} from '@solana/web3.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
 
 const SeedPhrase = () => {
-  const [seedText, setSeedText] = React.useState<string>('');
+  const {seedText, setSeedText, setPrivateKey, setPublicKey} = useStore();
   const [checked, setChecked] = React.useState<boolean>(false);
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const navigation = useNavigation();
   const retrieveSeed = () => {
     const mnemonic = bip39.generateMnemonic();
     setSeedText(mnemonic);
@@ -24,6 +31,34 @@ const SeedPhrase = () => {
 
   const writeToClipboard = async () => {
     await Clipboard?.setString(seedText);
+  };
+
+  const computeKeys = async () => {
+    try {
+      setLoading(true);
+      const seed = bip39.mnemonicToSeedSync(seedText, '');
+      const keypair = Keypair.fromSeed(seed.slice(0, 32));
+      console.log('got the keypair from seed', keypair);
+
+      setPrivateKey(keypair.secretKey);
+      setPublicKey(keypair.publicKey);
+      const data = {
+        privateKey: keypair.secretKey,
+        publicKey: keypair.publicKey,
+        seedText: seedText,
+      };
+      console.log('build the data', data);
+
+      const userData = JSON.stringify(data);
+      await AsyncStorage.setItem('@user_data', userData);
+      console.log('navigating to home');
+
+      navigation.reset({index: 0, routes: [{name: 'Root'}]});
+    } catch (error) {
+      console.log('error in generating keys', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   React.useEffect(() => {
@@ -68,8 +103,11 @@ const SeedPhrase = () => {
               styles.continue,
               {backgroundColor: checked ? Colors.teritary : '#BDEE8D'},
             ]}
+            onPress={computeKeys}
             disabled={!checked}>
-            <Text style={styles.continueText}>Continue</Text>
+            <Text style={styles.continueText}>
+              {loading ? <ActivityIndicator size={'small'} /> : 'Continue'}
+            </Text>
           </Pressable>
         </View>
       </View>
