@@ -4,8 +4,13 @@ import {Text} from 'react-native';
 import Colors from '../util/color';
 import LinearGradient from 'react-native-linear-gradient';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {useNavigation} from '@react-navigation/native';
 
 const Login = () => {
+  const navigation = useNavigation();
+  const navigateToSeed = async () => {
+    navigation.navigate('Seed');
+  };
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={'#59A759'} />
@@ -14,28 +19,48 @@ const Login = () => {
         colors={['#59A759', Colors.teritary]}>
         <View style={styles.gradient}>
           <View>
-            <View style={[styles.smallAssetContainer, styles.greenPhone]}>
+            <View
+              style={[
+                styles.smallAssetContainer,
+                styles.greenPhone,
+                styles.shadowProp,
+              ]}>
               <Image
                 source={require('../assets/GreenPhone.png')}
                 style={styles.imgStyle}
               />
             </View>
 
-            <View style={[styles.smallAssetContainer, styles.greenBag]}>
+            <View
+              style={[
+                styles.smallAssetContainer,
+                styles.greenBag,
+                styles.shadowProp,
+              ]}>
               <Image
                 source={require('../assets/GreenBag.png')}
                 style={styles.imgStyle}
               />
             </View>
 
-            <View style={[styles.smallAssetContainer, styles.greenSphere]}>
+            <View
+              style={[
+                styles.smallAssetContainer,
+                styles.greenSphere,
+                styles.shadowProp,
+              ]}>
               <Image
                 source={require('../assets/GreenSphere.png')}
                 style={styles.imgStyle}
               />
             </View>
 
-            <View style={[styles.largeAssetContainer, styles.greenBaloon]}>
+            <View
+              style={[
+                styles.largeAssetContainer,
+                styles.greenBaloon,
+                styles.shadowProp,
+              ]}>
               <Image
                 source={require('../assets/GreenBaloon.png')}
                 style={styles.imgStyle}
@@ -50,7 +75,11 @@ const Login = () => {
             </Text>
 
             <View style={styles.buttonsContainer}>
-              <Pressable style={styles.new}>
+              <Pressable
+                style={styles.new}
+                onPress={async () => {
+                  navigateToSeed();
+                }}>
                 <Text style={styles.newText}>Get Started</Text>
               </Pressable>
               <Pressable style={styles.existing}>
@@ -170,5 +199,12 @@ const styles = StyleSheet.create({
     color: 'white',
     marginLeft: 4,
     fontFamily: 'Rubik-Medium',
+  },
+  shadowProp: {
+    shadowOffset: {width: -2, height: 4},
+    shadowColor: '#171717',
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 100,
   },
 });

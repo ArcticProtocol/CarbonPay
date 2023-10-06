@@ -23,7 +23,7 @@ export const AppsView = () => {
   };
 
   const handleImageClick = (id: number) => {
-    navigation.navigate('WebView' as never);
+    navigation.navigate('WebView');
   };
 
   return (

@@ -1,5 +1,5 @@
 import {ScrollView, StyleSheet, View} from 'react-native';
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useState} from 'react';
 import WalletCard from '../components/WalletCard';
 import {Text} from 'react-native';
 import OffsetCard from '../components/OffsetCard';

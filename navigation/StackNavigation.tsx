@@ -4,9 +4,10 @@ import {RootStackParamList} from '../types/navigation';
 import BottomTabNavigator from './BottomTabNavigation';
 import {CustomWebView} from '../components/CustomWebView';
 import Login from '../screens/Login';
+import SeedPhrase from '../screens/SeedPhrase';
 
+const Stack = createNativeStackNavigator<RootStackParamList>();
 export default function StackNavigation() {
-  const Stack = createNativeStackNavigator<RootStackParamList>();
   return (
     <Stack.Navigator
       screenOptions={{
@@ -28,6 +29,15 @@ export default function StackNavigation() {
       <Stack.Screen
         name="Login"
         component={Login}
+        options={{
+          headerShown: false,
+          animation: 'default',
+          gestureEnabled: false,
+        }}
+      />
+      <Stack.Screen
+        name="Seed"
+        component={SeedPhrase}
         options={{
           headerShown: false,
           animation: 'default',
