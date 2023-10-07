@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Colors from '../util/color';
 import * as bip39 from 'bip39';
@@ -18,16 +18,17 @@ import {useStore} from '../store/store';
 import {Keypair} from '@solana/web3.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
+import {fromByteArray} from 'base64-js';
 
 const SeedPhrase = () => {
   const {seedText, setSeedText, setPrivateKey, setPublicKey} = useStore();
   const [checked, setChecked] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(false);
   const navigation = useNavigation();
-  const retrieveSeed = () => {
+  const retrieveSeed = useCallback(() => {
     const mnemonic = bip39.generateMnemonic();
     setSeedText(mnemonic);
-  };
+  }, [setSeedText]);
 
   const writeToClipboard = async () => {
     await Clipboard?.setString(seedText);
@@ -42,16 +43,18 @@ const SeedPhrase = () => {
 
       setPrivateKey(keypair.secretKey);
       setPublicKey(keypair.publicKey);
+
+      const encodedSecretKey = fromByteArray(keypair.secretKey);
+
       const data = {
-        privateKey: keypair.secretKey,
-        publicKey: keypair.publicKey,
+        privateKey: encodedSecretKey,
         seedText: seedText,
+        publicKey: keypair.publicKey.toBase58(),
       };
-      console.log('build the data', data);
 
       const userData = JSON.stringify(data);
+      //save user data in async storage
       await AsyncStorage.setItem('@user_data', userData);
-      console.log('navigating to home');
 
       navigation.reset({index: 0, routes: [{name: 'Root'}]});
     } catch (error) {
@@ -63,7 +66,7 @@ const SeedPhrase = () => {
 
   React.useEffect(() => {
     retrieveSeed();
-  }, []);
+  }, [retrieveSeed]);
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={'default'} backgroundColor={'black'} />
@@ -106,7 +109,7 @@ const SeedPhrase = () => {
             onPress={computeKeys}
             disabled={!checked}>
             <Text style={styles.continueText}>
-              {loading ? <ActivityIndicator size={'small'} /> : 'Continue'}
+              {loading ? <ActivityIndicator size={'large'} /> : 'Continue'}
             </Text>
           </Pressable>
         </View>

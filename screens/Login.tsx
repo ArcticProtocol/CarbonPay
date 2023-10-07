@@ -6,18 +6,27 @@ import LinearGradient from 'react-native-linear-gradient';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useStore} from '../store/store';
+import {PublicKey} from '@solana/web3.js';
+import {toByteArray} from 'base64-js';
 
 const Login = () => {
   const navigation = useNavigation();
+  const {setPrivateKey, setSeedText, setPublicKey} = useStore();
   const navigateToSeed = async () => {
     navigation.navigate('Seed');
   };
 
   const checkStorage = async () => {
-    const data = await AsyncStorage.getItem('@user_data');
-    console.log(data);
+    const userData = await AsyncStorage.getItem('@user_data');
 
-    if (data) {
+    if (userData) {
+      const parsedUserData = JSON.parse(userData);
+      const decodedPrivateKey = toByteArray(parsedUserData.privateKey);
+      setSeedText(parsedUserData.seedText);
+      setPrivateKey(decodedPrivateKey);
+      const publicKeyObject = new PublicKey(parsedUserData.publicKey);
+      setPublicKey(publicKeyObject);
       navigation.reset({index: 0, routes: [{name: 'Root'}]});
     }
     return;
