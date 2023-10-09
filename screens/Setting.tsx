@@ -5,16 +5,18 @@ import Colors from '../util/color';
 import createConnection from '../util/createConnection';
 
 const Setting = () => {
-  const {publicKey} = useStore();
+  const {publicKey, privateKey, seedText} = useStore();
   const checkBalance = async () => {
     const connection = createConnection();
     console.log(connection, 'this is connection');
     console.log(publicKey?.toJSON());
+    console.log(privateKey);
+    console.log(seedText);
 
     const lamports = await connection.getBalance(publicKey).catch(err => {
       console.error(`Error: ${err}`);
     });
-    console.log('this is lamports', lamports/1000000000);
+    console.log('this is lamports', lamports / 1000000000);
   };
   useEffect(() => {
     setTimeout(() => {

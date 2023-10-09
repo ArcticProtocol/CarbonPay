@@ -5,6 +5,7 @@ import BottomTabNavigator from './BottomTabNavigation';
 import {CustomWebView} from '../components/CustomWebView';
 import Login from '../screens/Login';
 import SeedPhrase from '../screens/SeedPhrase';
+import ImportWallet from '../screens/ImportWallet';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 export default function StackNavigation() {
@@ -38,6 +39,15 @@ export default function StackNavigation() {
       <Stack.Screen
         name="Seed"
         component={SeedPhrase}
+        options={{
+          headerShown: false,
+          animation: 'default',
+          gestureEnabled: false,
+        }}
+      />
+      <Stack.Screen
+        name="ImportWallet"
+        component={ImportWallet}
         options={{
           headerShown: false,
           animation: 'default',

@@ -16,6 +16,9 @@ const Login = () => {
   const navigateToSeed = async () => {
     navigation.navigate('Seed');
   };
+  const navigateToImport = async () => {
+    navigation.navigate('ImportWallet');
+  };
 
   const checkStorage = async () => {
     const userData = await AsyncStorage.getItem('@user_data');
@@ -105,7 +108,11 @@ const Login = () => {
                 }}>
                 <Text style={styles.newText}>Get Started</Text>
               </Pressable>
-              <Pressable style={styles.existing}>
+              <Pressable
+                style={styles.existing}
+                onPress={async () => {
+                  navigateToImport();
+                }}>
                 <Text style={styles.existingText}>Import Wallet</Text>
               </Pressable>
             </View>

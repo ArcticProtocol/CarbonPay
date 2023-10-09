@@ -46,9 +46,10 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     color: '#000',
-    fontWeight: '800',
+    fontFamily: 'Rubik-Bold',
     fontSize: 20,
-    marginBottom: 4,
+    marginBottom: 8,
+    paddingLeft: 4,
   },
 
   box: {

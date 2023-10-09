@@ -16,6 +16,7 @@ export type RootStackParamList = {
   WebView: undefined;
   Login: undefined;
   Seed: undefined;
+  ImportWallet: undefined;
 };
 
 export type RootTabParamList = {
