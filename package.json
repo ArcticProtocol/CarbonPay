@@ -23,6 +23,7 @@
     "base64-js": "^1.5.1",
     "bip39": "^3.1.0",
     "buffer": "^6.0.3",
+    "coin-ticker": "^3.2.0",
     "react": "18.2.0",
     "react-native": "0.71.4",
     "react-native-btr": "^2.2.0",

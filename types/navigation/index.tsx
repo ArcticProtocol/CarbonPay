@@ -13,7 +13,7 @@ declare global {
 
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
-  WebView: undefined;
+  WebView: {url: string};
   Login: undefined;
   Seed: undefined;
   ImportWallet: undefined;
