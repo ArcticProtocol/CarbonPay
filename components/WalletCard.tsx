@@ -8,21 +8,26 @@ import Solana from '../assets/icons/Solana';
 
 type WalletCardParams = {
   sendCta?: () => void;
+  balances: {
+    usd: number;
+    sol: number;
+  };
 };
 
 const WalletCard = (params: WalletCardParams) => {
-  const {sendCta} = params;
+  const {sendCta, balances} = params;
+
   return (
     <>
       <View style={styles.card}>
         <View style={styles.amountRow}>
-          <Text style={styles.amountText}>$5990</Text>
+          <Text style={styles.amountText}>${balances.usd}</Text>
           <View style={styles.NotificationContainer}>
             <Notifications height={24} width={24} color={'white'} />
           </View>
         </View>
         <View style={styles.middleRow}>
-          <Text style={styles.middleText}>$SOl 2.34</Text>
+          <Text style={styles.middleText}>$SOL {balances.sol}</Text>
           <View style={styles.middleAvatars}>
             <View>
               <USDC height={28} width={28} />

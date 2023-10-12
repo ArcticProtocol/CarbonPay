@@ -2583,6 +2583,13 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.yarnpkg.com/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz#92f95616501069d07d10edb2fc37d3e1c65123b7"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
+axios@^0.15.3:
+  version "0.15.3"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.15.3.tgz#2c9d638b2e191a08ea1d6cc988eadd6ba5bdc053"
+  integrity sha512-w3/VNaraEcDri16lbemQWQGKfaFk9O0IZkzKlLeF5r6WWDv9TkcXkP+MWkRK8FbxwfozY/liI+qtvhV295t3HQ==
+  dependencies:
+    follow-redirects "1.0.0"
+
 axios@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.5.1.tgz#11fbaa11fc35f431193a9564109c88c1f27b585f"
@@ -3088,6 +3095,13 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha512-RpAVKQA5T63xEj6/giIbUEtZwJ4UFIc3ZtvEkiaUERylqe8xb5IvqcgOurZLahv93CLKfxcw5YI+DZcUBRyLXA==
+
+coin-ticker@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/coin-ticker/-/coin-ticker-3.2.0.tgz#18d3ec67420c1fcd4eeeb5d505dc530040a6a3b4"
+  integrity sha512-hQn+ZC0BDl/2+1ywqS993CfKSngngx4DJ6kH/atfMyAUN2dahxZ3r5339p0TI2W0SWD4kBEuIV4Q3iMBERJFuQ==
+  dependencies:
+    axios "^0.15.3"
 
 collect-v8-coverage@^1.0.0:
   version "1.0.1"
@@ -4125,6 +4139,13 @@ flow-parser@^0.185.0:
   version "0.185.2"
   resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.185.2.tgz#cb7ee57f77377d6c5d69a469e980f6332a15e492"
   integrity sha512-2hJ5ACYeJCzNtiVULov6pljKOLygy0zddoqSI1fFetM+XRPpRshFdGEijtqlamA1XwyZ+7rhryI6FQFzvtLWUQ==
+
+follow-redirects@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.0.0.tgz#8e34298cbd2e176f254effec75a1c78cc849fd37"
+  integrity sha512-7s+wBk4z5xTwVJuozRBAyRofWKjD3uG2CUjZfZTrw9f+f+z8ZSxOjAqfIDLtc0Hnz+wGK2Y8qd93nGGjXBYKsQ==
+  dependencies:
+    debug "^2.2.0"
 
 follow-redirects@^1.15.0:
   version "1.15.3"

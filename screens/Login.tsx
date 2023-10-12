@@ -58,7 +58,7 @@ const Login = () => {
             </View>
 
             <View
-              style={[
+              style={[ 
                 styles.smallAssetContainer,
                 styles.greenBag,
                 styles.shadowProp,

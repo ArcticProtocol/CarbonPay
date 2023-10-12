@@ -15,15 +15,16 @@ export const AppsView = () => {
     return (
       <TouchableOpacity
         style={styles.box}
-        onPress={() => handleImageClick(item.id)}>
+        onPress={() => handleImageClick(item.url)}>
         <Image source={{uri: item.imageUrl}} style={styles.image} />
         <Text style={styles.IconTitle}>{item.title}</Text>
       </TouchableOpacity>
     );
   };
 
-  const handleImageClick = (id: number) => {
-    navigation.navigate('WebView');
+  const handleImageClick = (url: string) => {
+    const params = {url};
+    navigation.navigate('WebView', {url});
   };
 
   return (

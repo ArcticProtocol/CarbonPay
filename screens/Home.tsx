@@ -1,5 +1,5 @@
 import {ScrollView, StyleSheet, View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import WalletCard from '../components/WalletCard';
 import {Text} from 'react-native';
 import OffsetCard from '../components/OffsetCard';
@@ -8,22 +8,28 @@ import Transactions from '../components/Transactions';
 import CollectedNFT from '../components/CollectedNFT';
 import {CustomBottomSheetView} from '../components/bottomSheet/BottomSheet';
 import {AppsView} from '../components/Apps';
+import {useTransactionStore} from '../store/transaction_store';
 
 const Home = () => {
   const [visible, setVisible] = useState(false);
+  const {balances, fetchBalance, fetchTransactionHistory} = useTransactionStore();
+
+  useEffect(() => {
+    fetchBalance();
+    fetchTransactionHistory();
+  }, []);
 
   const toggleBottomNavigationView = () => {
-    //Toggling the visibility state of the bottom sheet
     setVisible(!visible);
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} >
       <View style={styles.textContainer}>
         <Text style={styles.greetingText}>Welcome to </Text>
         <Text style={styles.appName}>CarbonPay 🎉</Text>
       </View>
-      <WalletCard sendCta={toggleBottomNavigationView} />
+      <WalletCard balances={balances} sendCta={toggleBottomNavigationView} />
 
       <View style={styles.refiApps}>
         <AppsView />
@@ -31,6 +37,8 @@ const Home = () => {
       <OffsetCard />
       <Transactions />
       <CollectedNFT />
+      <View style={styles.bottomPadding}/>
+
       <CustomBottomSheetView
         visible={visible}
         toggleBottomNavigationView={toggleBottomNavigationView}
@@ -63,4 +71,8 @@ const styles = StyleSheet.create({
   refiApps: {
     paddingVertical: 10,
   },
+
+  bottomPadding : {
+    paddingBottom : 100,
+  }
 });

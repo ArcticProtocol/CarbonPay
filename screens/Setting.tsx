@@ -13,10 +13,10 @@ const Setting = () => {
     console.log(privateKey);
     console.log(seedText);
 
-    const lamports = await connection.getBalance(publicKey).catch(err => {
+    const lamports = await connection.getBalance(publicKey!).catch(err => {
       console.error(`Error: ${err}`);
     });
-    console.log('this is lamports', lamports / 1000000000);
+    console.log('this is lamports', lamports! / 1000000000);
   };
   useEffect(() => {
     setTimeout(() => {
