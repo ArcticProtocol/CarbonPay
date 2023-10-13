@@ -27,7 +27,8 @@ export default function BottomTabNavigator() {
         name="Settings"
         component={Setting}
         options={{
-          tabBarLabel: 'Settings',
+          headerShown: false,
+          tabBarLabel: 'Wallet',
           tabBarIcon: ({color}) => (
             <Settings height={24} width={24} color={color} />
           ),

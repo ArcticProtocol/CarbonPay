@@ -21,13 +21,13 @@ const WalletCard = (params: WalletCardParams) => {
     <>
       <View style={styles.card}>
         <View style={styles.amountRow}>
-          <Text style={styles.amountText}>${balances.usd}</Text>
+          <Text style={styles.amountText}>${balances.usd.toFixed(2)}</Text>
           <View style={styles.NotificationContainer}>
             <Notifications height={24} width={24} color={'white'} />
           </View>
         </View>
         <View style={styles.middleRow}>
-          <Text style={styles.middleText}>$SOL {balances.sol}</Text>
+          <Text style={styles.middleText}>$SOL {balances.sol.toFixed(2)}</Text>
           <View style={styles.middleAvatars}>
             <View>
               <USDC height={28} width={28} />
