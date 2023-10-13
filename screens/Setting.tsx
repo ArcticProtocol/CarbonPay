@@ -1,31 +1,42 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React, {useEffect} from 'react';
-import {useStore} from '../store/store';
+import {
+  FlatList,
+  Linking,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React from 'react';
 import Colors from '../util/color';
-import createConnection from '../util/createConnection';
+import ArrowRight from '../assets/icons/ArrowRIght';
 
 const Setting = () => {
-  const {publicKey, privateKey, seedText} = useStore();
-  const checkBalance = async () => {
-    const connection = createConnection();
-    console.log(connection, 'this is connection');
-    console.log(publicKey?.toJSON());
-    console.log(privateKey);
-    console.log(seedText);
-
-    const lamports = await connection.getBalance(publicKey!).catch(err => {
-      console.error(`Error: ${err}`);
-    });
-    console.log('this is lamports', lamports! / 1000000000);
+  const renderItem = ({item}: {item: ISettingsItem}) => {
+    return (
+      <TouchableOpacity
+        style={styles.optionContainer}
+        onPress={() => {
+          Linking.openURL(item.url);
+        }}>
+        <Text style={styles.optionText}>{item.name}</Text>
+        <ArrowRight height={30} width={30} color={Colors.background} />
+      </TouchableOpacity>
+    );
   };
-  useEffect(() => {
-    setTimeout(() => {
-      checkBalance();
-    }, 3000);
-  }, []);
+
   return (
-    <View>
-      <Text style={styles.bruh}>{publicKey?.toString()}</Text>
+    <View style={styles.container}>
+      <Text style={styles.screenTitle}>Settings</Text>
+      <View style={styles.optionsContainer}>
+        <FlatList
+          data={SettingsItems}
+          keyExtractor={item => item.id.toString()}
+          renderItem={renderItem}
+        />
+      </View>
+      <TouchableOpacity style={styles.signOut}>
+        <Text style={styles.signOutText}>Sign Out</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -33,8 +44,80 @@ const Setting = () => {
 export default Setting;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingVertical: 24,
+    paddingHorizontal: 16,
+  },
+  screenTitle: {
+    color: 'black',
+    fontSize: 26,
+    fontFamily: 'Rubik-SemiBold',
+    textAlign: 'center',
+  },
+  optionsContainer: {
+    backgroundColor: Colors.teritary,
+    borderRadius: 20,
+    flexDirection: 'column',
+    marginTop: 30,
+  },
+  optionContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 20,
+    borderBottomColor: Colors.background,
+    borderBottomWidth: 0.5,
+  },
+  optionText: {
+    color: Colors.background,
+    fontSize: 20,
+    fontFamily: 'Rubik-SemiBold',
+  },
+  signOut: {
+    textAlign: 'center',
+    padding: 16,
+    borderBottomColor: Colors.background,
+    backgroundColor: Colors.element,
+    borderRadius: 20,
+    marginTop: 30,
+  },
+  signOutText: {
+    color: Colors.background,
+    fontSize: 20,
+    fontFamily: 'Rubik-SemiBold',
+    textAlign: 'center',
+  },
   bruh: {
     color: Colors.teritary,
     fontSize: 20,
   },
 });
+
+type ISettingsItem = {
+  id: number;
+  name: string;
+  url: string;
+};
+
+const SettingsItems: ISettingsItem[] = [
+  {
+    id: 1,
+    name: 'Country',
+    url: 'https://google.com',
+  },
+  {
+    id: 2,
+    name: 'Network',
+    url: 'https://google.com',
+  },
+  {
+    id: 3,
+    name: 'Support',
+    url: 'https://google.com',
+  },
+  {
+    id: 4,
+    name: 'Privacy Policy',
+    url: 'https://google.com',
+  },
+];
