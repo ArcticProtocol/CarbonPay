@@ -6,11 +6,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import Colors from '../util/color';
 import ArrowRight from '../assets/icons/ArrowRIght';
+import {LogoutSheet} from '../components/bottomSheet/LogoutSheet';
 
 const Setting = () => {
+  const [visible, setVisible] = useState(false);
+  const toggleBottomNavigationView = () => {
+    setVisible(!visible);
+  };
   const renderItem = ({item}: {item: ISettingsItem}) => {
     return (
       <TouchableOpacity
@@ -34,9 +39,15 @@ const Setting = () => {
           renderItem={renderItem}
         />
       </View>
-      <TouchableOpacity style={styles.signOut}>
+      <TouchableOpacity
+        style={styles.signOut}
+        onPress={toggleBottomNavigationView}>
         <Text style={styles.signOutText}>Sign Out</Text>
       </TouchableOpacity>
+      <LogoutSheet
+        visible={visible}
+        toggleBottomNavigationView={toggleBottomNavigationView}
+      />
     </View>
   );
 };

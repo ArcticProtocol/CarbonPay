@@ -1,5 +1,4 @@
-import {useState} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {BottomSheet} from 'react-native-btr';
 import {SendTransaction} from './SendTransactionView';
 
