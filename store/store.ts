@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {PublicKey} from '@solana/web3.js';
 import {create} from 'zustand';
 
@@ -17,6 +18,14 @@ export const useStore = create<IStore>(set => ({
     set({
       publicKey: key,
     }),
+  clearKeys: async () => {
+    set({
+      publicKey: null,
+      privateKey: null,
+      seedText: '',
+    });
+    await AsyncStorage.removeItem('@user_data');
+  },
 }));
 
 export type IStore = {
@@ -26,4 +35,5 @@ export type IStore = {
   setPrivateKey: (key: Uint8Array) => void;
   setSeedText: (key: string) => void;
   setPublicKey: (key: PublicKey) => void;
+  clearKeys: () => void;
 };

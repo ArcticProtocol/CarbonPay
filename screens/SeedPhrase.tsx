@@ -37,7 +37,16 @@ const SeedPhrase = () => {
   const computeKeys = async () => {
     try {
       setLoading(true);
-      const seed = bip39.mnemonicToSeedSync(seedText, '');
+
+      const seed: Buffer = await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          try {
+            resolve(bip39.mnemonicToSeedSync(seedText, ''));
+          } catch (error) {
+            reject(error);
+          }
+        }, 0);
+      });
       const keypair = Keypair.fromSeed(seed.slice(0, 32));
       console.log('got the keypair from seed', keypair);
 

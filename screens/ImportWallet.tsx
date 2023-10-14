@@ -44,7 +44,18 @@ const ImportWallet = () => {
 
   const onSubmit = async () => {
     try {
-      const phrase = bip39.mnemonicToSeedSync(seed, ''); // (mnemonic, password)
+      setLoading(true);
+
+      const phrase: Buffer = await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          try {
+            resolve(bip39.mnemonicToSeedSync(seed, ''));
+          } catch (error) {
+            reject(error);
+          }
+        }, 0);
+      });
+
       const keypair = Keypair.fromSeed(phrase.slice(0, 32));
       setSeedText(seed);
       setPrivateKey(keypair.secretKey);
