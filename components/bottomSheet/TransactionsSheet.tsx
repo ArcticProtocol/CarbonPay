@@ -1,6 +1,5 @@
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {BottomSheet} from 'react-native-btr';
-import Colors from '../../util/color';
 import React from 'react';
 import TransactionCard from '../../components/TransactionCard';
 import {useTransactionStore} from '../../store/transaction_store';
@@ -42,7 +41,7 @@ export const TransactionsSheet = ({
       <View style={styles.bottomNavigationView}>
         <FlatList
           data={transactionHistory}
-          // keyExtractor={item => item.id.toString()}
+          //   keyExtractor={item => item.id.toString()}
           renderItem={renderItem}
           ListHeaderComponent={
             <Text style={styles.title}>Your Transactions</Text>

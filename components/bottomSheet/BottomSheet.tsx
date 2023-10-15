@@ -5,11 +5,13 @@ import {SendTransaction} from './SendTransactionView';
 type BottomSheetParams = {
   visible: boolean;
   toggleBottomNavigationView: () => void;
+  toggleNFTSheetView: () => void;
 };
 
 export const CustomBottomSheetView = ({
   visible,
   toggleBottomNavigationView,
+  toggleNFTSheetView,
 }: BottomSheetParams) => {
   return (
     <BottomSheet
@@ -21,7 +23,7 @@ export const CustomBottomSheetView = ({
       //Toggling the visibility state on the clicking out side of the sheet
     >
       <View style={styles.bottomNavigationView}>
-        <SendTransaction />
+        <SendTransaction toggleNFTSheetView={toggleNFTSheetView} />
       </View>
     </BottomSheet>
   );
