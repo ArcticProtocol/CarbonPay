@@ -30,6 +30,7 @@ const ImportWallet = () => {
   const {setPrivateKey, setPublicKey, setSeedText} = useStore();
   const readFromClipboard = async () => {
     const text = await Clipboard?.getString();
+    setValid(true);
     setSeed(text);
   };
 

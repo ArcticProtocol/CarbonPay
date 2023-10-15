@@ -5,7 +5,7 @@ const createConnection = () => {
   if (connection) {
     return connection;
   }
-  return (connection = new Connection(clusterApiUrl('testnet')));
+  return (connection = new Connection(clusterApiUrl('devnet')));
 };
 
 export default createConnection;

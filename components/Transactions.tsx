@@ -1,38 +1,50 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useState} from 'react';
 import ArrowRight from '../assets/icons/ArrowRIght';
 import TransactionCard from './TransactionCard';
 import Solana from '../assets/icons/Solana';
-import Dai from '../assets/icons/Dai';
-import USDC from '../assets/icons/USDC';
+import {useTransactionStore} from '../store/transaction_store';
+import getDifference from '../util/getDateDifference';
+import {TransactionsSheet} from './bottomSheet/TransactionsSheet';
 
 const Transactions = () => {
+  const {transactionHistory} = useTransactionStore();
+  const [visible, setVisible] = useState(false);
+  const toggleVisible = () => {
+    setVisible(!visible);
+  };
+
+  const renderItem = ({item}) => {
+    return (
+      <TransactionCard
+        Icon={<Solana height={42} width={42} />}
+        amount={(item.postBalances[1] - item.preBalances[1]) / 1000000000}
+        action={
+          item.postBalances[1] > item.preBalances[1] ? 'Received' : 'Sent'
+        }
+        time={getDifference(item?.blockTime)}
+      />
+    );
+  };
   return (
     <View style={styles.txnContainer}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Recent Transactions</Text>
-        <ArrowRight height={30} width={30} color={'black'} />
+        <TouchableOpacity onPress={toggleVisible}>
+          <ArrowRight height={30} width={30} color={'black'} />
+        </TouchableOpacity>
       </View>
       <View style={styles.txnCardContainer}>
-        <TransactionCard
-          Icon={<Solana height={42} width={42} />}
-          amount={'20 Sol'}
-          action={'Received'}
-          time={'5 hours ago'}
-        />
-        <TransactionCard
-          Icon={<Dai height={42} width={42} />}
-          amount={'34 Dai'}
-          action={'Sent'}
-          time={'Yesterday'}
-        />
-        <TransactionCard
-          Icon={<USDC height={42} width={42} />}
-          amount={'48 USDC'}
-          action={'Swapped'}
-          time={'Yesterday'}
+        <FlatList
+          data={transactionHistory.slice(0, 2)}
+          // keyExtractor={item => item.id.toString()}
+          renderItem={renderItem}
         />
       </View>
+      <TransactionsSheet
+        toggleBottomNavigationView={toggleVisible}
+        visible={visible}
+      />
     </View>
   );
 };
@@ -46,7 +58,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Rubik-Bold',
   },
   txnContainer: {
-    marginVertical: 20,
+    marginTop: 20,
+    marginBottom: 10,
   },
   titleContainer: {
     flexDirection: 'row',
@@ -57,6 +70,5 @@ const styles = StyleSheet.create({
   txnCardContainer: {
     flexDirection: 'column',
     marginTop: 8,
-    gap: 8,
   },
 });
