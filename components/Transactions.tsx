@@ -14,7 +14,7 @@ const Transactions = () => {
     setVisible(!visible);
   };
 
-  const renderItem = ({item}) => {
+  const renderItem = ({item}: any) => {
     return (
       <TransactionCard
         Icon={<Solana height={42} width={42} />}

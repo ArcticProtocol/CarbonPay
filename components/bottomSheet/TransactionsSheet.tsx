@@ -18,7 +18,7 @@ export const TransactionsSheet = ({
 }: BottomSheetParams) => {
   const {transactionHistory} = useTransactionStore();
 
-  const renderItem = ({item}) => {
+  const renderItem = ({item}: any) => {
     return (
       <TransactionCard
         Icon={<Solana height={42} width={42} />}

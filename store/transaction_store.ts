@@ -3,7 +3,9 @@ import {useStore} from './store';
 import createConnection from '../util/createConnection';
 import {
   Keypair,
+  LAMPORTS_PER_SOL,
   PublicKey,
+  SystemProgram,
   Transaction,
   sendAndConfirmTransaction,
 } from '@solana/web3.js';
@@ -11,6 +13,7 @@ const coinTicker = require('coin-ticker');
 
 export const useTransactionStore = create<ITransactionStore>((set, get) => ({
   publicKey: useStore.getState().publicKey,
+  solPriceUSD: 0,
   balances: {
     sol: 0,
     usd: 0,
@@ -32,11 +35,16 @@ export const useTransactionStore = create<ITransactionStore>((set, get) => ({
     });
 
     get().fetchUsdBalance(get().balances.sol);
+
+    console.log(key!.toString().length);
   },
 
   fetchUsdBalance: async sol => {
     const response = await coinTicker('bitfinex', 'SOL_USD');
-    set({balances: {sol: sol, usd: sol * response.last}});
+    set({
+      balances: {sol: sol, usd: sol * response.last},
+      solPriceUSD: response.last,
+    });
   },
 
   fetchTransactionHistory: async () => {
@@ -59,18 +67,29 @@ export const useTransactionStore = create<ITransactionStore>((set, get) => ({
     // console.log(transactions.length);
   },
 
-  sendTransaction: async () => {
+  sendTransaction: async ({toAddress, amount}: any) => {
+    let offsetAddress = '';
+
     let tx = new Transaction();
-    tx.add();
+    tx.add(
+      SystemProgram.transfer({
+        fromPubkey: get().publicKey!,
+        toPubkey: toAddress,
+        lamports: amount * LAMPORTS_PER_SOL,
+      }),
+    );
     let kp = Keypair.fromSecretKey(useStore.getState().privateKey!);
     let response = await sendAndConfirmTransaction(createConnection(), tx, [
       kp,
     ]);
+
+    console.log({response});
   },
 }));
 
 export type ITransactionStore = {
   publicKey: PublicKey | null;
+  solPriceUSD: number;
   balances: {
     sol: number;
     usd: number;
@@ -79,4 +98,11 @@ export type ITransactionStore = {
   fetchBalance: () => void;
   fetchUsdBalance: (lamports: number) => void;
   fetchTransactionHistory: () => void;
+  sendTransaction: ({
+    toAddress,
+    solAmount,
+  }: {
+    toAddress: string;
+    solAmount: BigInt;
+  }) => void;
 };
