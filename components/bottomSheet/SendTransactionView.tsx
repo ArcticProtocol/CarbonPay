@@ -6,11 +6,15 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import {CheckBox, Separator} from 'react-native-btr';
+import {CheckBox} from 'react-native-btr';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {useTransactionStore} from '../../store/transaction_store';
 
-export const SendTransaction: React.FC = () => {
+export const SendTransaction = ({
+  toggleNFTSheetView,
+}: {
+  toggleNFTSheetView: () => void;
+}) => {
   const [amount, setAmount] = useState('');
   const [toAddress, setReceiverAddress] = useState('');
   const [automaticallyOffset, setAutomaticallyOffset] = useState(true);
@@ -26,8 +30,12 @@ export const SendTransaction: React.FC = () => {
     // Implement your send logic here
     console.log('Sending amount:', typeof parseInt(amount, 10));
     console.log('Automatically Offset:', automaticallyOffset);
+    toggleNFTSheetView();
 
-    sendTransaction({solAmount: BigInt(parseInt(amount)), toAddress: toAddress});
+    sendTransaction({
+      solAmount: BigInt(parseInt(amount)),
+      toAddress: toAddress,
+    });
   };
 
   if (toAddress.length < 44)

@@ -9,10 +9,13 @@ import CollectedNFT from '../components/CollectedNFT';
 import {CustomBottomSheetView} from '../components/bottomSheet/BottomSheet';
 import {AppsView} from '../components/Apps';
 import {useTransactionStore} from '../store/transaction_store';
+import {NFTSheet} from '../components/bottomSheet/NFTSheet';
 
 const Home = () => {
   const [visible, setVisible] = useState(false);
-  const {balances, fetchBalance, fetchTransactionHistory} = useTransactionStore();
+  const [NFTSheetVisible, setNFTSheetVisible] = useState(false);
+  const {balances, fetchBalance, fetchTransactionHistory} =
+    useTransactionStore();
 
   useEffect(() => {
     fetchBalance();
@@ -23,8 +26,12 @@ const Home = () => {
     setVisible(!visible);
   };
 
+  const toggleNFTSheet = () => {
+    setNFTSheetVisible(!NFTSheetVisible);
+  };
+
   return (
-    <ScrollView style={styles.container} >
+    <ScrollView style={styles.container}>
       <View style={styles.textContainer}>
         <Text style={styles.greetingText}>Welcome to </Text>
         <Text style={styles.appName}>CarbonPay 🎉</Text>
@@ -37,11 +44,16 @@ const Home = () => {
       <OffsetCard />
       <Transactions />
       <CollectedNFT />
-      <View style={styles.bottomPadding}/>
+      <View style={styles.bottomPadding} />
 
       <CustomBottomSheetView
         visible={visible}
         toggleBottomNavigationView={toggleBottomNavigationView}
+        toggleNFTSheetView={toggleNFTSheet}
+      />
+      <NFTSheet
+        visible={NFTSheetVisible}
+        toggleBottomNavigationView={toggleNFTSheet}
       />
     </ScrollView>
   );
@@ -72,7 +84,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
 
-  bottomPadding : {
-    paddingBottom : 100,
-  }
+  bottomPadding: {
+    paddingBottom: 100,
+  },
 });
