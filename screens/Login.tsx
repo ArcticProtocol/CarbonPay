@@ -29,6 +29,8 @@ const Login = () => {
       setSeedText(parsedUserData.seedText);
       setPrivateKey(decodedPrivateKey);
       const publicKeyObject = new PublicKey(parsedUserData.publicKey);
+      console.log(parsedUserData.publicKey);
+
       setPublicKey(publicKeyObject);
       navigation.reset({index: 0, routes: [{name: 'Root'}]});
     }

@@ -5,7 +5,7 @@ import Colors from '../util/color';
 import ArrowUp from '../assets/icons/ArrowUp';
 
 type TransactionCardProps = {
-  amount: string;
+  amount: Number;
   Icon: React.ReactNode;
   time: string;
   action: string;
@@ -23,14 +23,14 @@ const TransactionCard = ({
       <View style={styles.middleContainer}>
         <View style={styles.txnMiddle}>
           <View style={styles.actionContainer}>
-            {action == 'Received' ? (
+            {action === 'Received' ? (
               <ArrowDown height={14} width={14} color={Colors.teritary} />
             ) : (
               <ArrowUp height={14} width={14} color={Colors.teritary} />
             )}
             <Text style={styles.txnAction}>{action}</Text>
           </View>
-          <Text style={styles.amt}>{amount}</Text>
+          <Text style={styles.amt}>{`${amount} sol`}</Text>
         </View>
         <Text style={styles.time}>{time}</Text>
       </View>
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
+    marginBottom: 8,
   },
   middleContainer: {
     flexDirection: 'row',

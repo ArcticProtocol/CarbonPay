@@ -1,7 +1,12 @@
 import {create} from 'zustand';
 import {useStore} from './store';
 import createConnection from '../util/createConnection';
-import {Keypair, PublicKey, Transaction, sendAndConfirmTransaction} from '@solana/web3.js';
+import {
+  Keypair,
+  PublicKey,
+  Transaction,
+  sendAndConfirmTransaction,
+} from '@solana/web3.js';
 const coinTicker = require('coin-ticker');
 
 export const useTransactionStore = create<ITransactionStore>((set, get) => ({
@@ -42,18 +47,26 @@ export const useTransactionStore = create<ITransactionStore>((set, get) => ({
     const transactions = [];
     for (let i: number = 0; i < signatures.length; i++) {
       let tx = await createConnection().getTransaction(signatures[i].signature);
-      transactions.push(tx?.meta);
+      transactions.push({...tx?.meta, blockTime: tx?.blockTime});
     }
+    set({
+      transactionHistory: transactions,
+    });
 
-    console.log({transactions})
+    // console.log({transactions});
+    // console.log(transactions[0].postBalances);
+    // console.log(transactions[0].preBalances);
+    // console.log(transactions.length);
   },
 
-  sendTransaction : async () => {
+  sendTransaction: async () => {
     let tx = new Transaction();
-    tx.add()
+    tx.add();
     let kp = Keypair.fromSecretKey(useStore.getState().privateKey!);
-    let response = await sendAndConfirmTransaction(createConnection(), tx, [kp])
-  }
+    let response = await sendAndConfirmTransaction(createConnection(), tx, [
+      kp,
+    ]);
+  },
 }));
 
 export type ITransactionStore = {
