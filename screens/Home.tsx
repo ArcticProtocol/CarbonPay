@@ -51,7 +51,7 @@ const Home = () => {
         visible={visible}
         toggleBottomNavigationView={toggleBottomNavigationView}
         bottomsheetChild={
-          <SendTransaction toggleNFTSheetView={toggleNFTSheet} />
+          <SendTransaction toggleNFTSheetView={toggleNFTSheet} address="" />
         }
       />
       <NFTSheet

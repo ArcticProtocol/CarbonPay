@@ -95,7 +95,7 @@ export const useTransactionStore = create<ITransactionStore>((set, get) => ({
       changeOrgNonProfits: response,
     });
 
-    console.log({response});
+    console.log(response);
   },
 }));
 

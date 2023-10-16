@@ -6,9 +6,13 @@ import {NonprofitsSheet} from './bottomSheet/NonProfitsSheet';
 
 const OffsetCard = () => {
   const [visible, setVisible] = useState(false);
+  const [TransactionSheetVisible, setTransactionSheetVisible] = useState(false);
 
   const toggleBottomNavigationView = () => {
     setVisible(!visible);
+  };
+  const toggleTransactionView = () => {
+    setTransactionSheetVisible(!TransactionSheetVisible);
   };
   return (
     <View style={styles.offsetBox}>
@@ -17,7 +21,9 @@ const OffsetCard = () => {
       </View>
       <View style={styles.offsetContainer}>
         <Text style={styles.offsetText}>Your Footprint is reducing 🔥</Text>
-        <TouchableOpacity style={styles.button} onPress={toggleBottomNavigationView}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={toggleBottomNavigationView}>
           <Text style={styles.txButton}>Offset</Text>
         </TouchableOpacity>
 
