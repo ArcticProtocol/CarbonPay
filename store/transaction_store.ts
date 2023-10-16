@@ -9,6 +9,8 @@ import {
   Transaction,
   sendAndConfirmTransaction,
 } from '@solana/web3.js';
+import ChangeOrg from '../core/change.org/changeorg';
+import Nonprofit from '../core/change.org/src/models/nonprofit';
 const coinTicker = require('coin-ticker');
 
 export const useTransactionStore = create<ITransactionStore>((set, get) => ({
@@ -19,6 +21,7 @@ export const useTransactionStore = create<ITransactionStore>((set, get) => ({
     usd: 0,
   },
   transactionHistory: [],
+  changeOrgNonProfits: [],
 
   fetchBalance: async () => {
     const key = get().publicKey;
@@ -85,6 +88,15 @@ export const useTransactionStore = create<ITransactionStore>((set, get) => ({
 
     console.log({response});
   },
+
+  fetchNonProfits: async () => {
+    let response = await ChangeOrg.getInstance.api!.fectchNonProfits();
+    set({
+      changeOrgNonProfits: response,
+    });
+
+    console.log({response});
+  },
 }));
 
 export type ITransactionStore = {
@@ -95,9 +107,11 @@ export type ITransactionStore = {
     usd: number;
   };
   transactionHistory: any[];
+  changeOrgNonProfits: Nonprofit[];
   fetchBalance: () => void;
   fetchUsdBalance: (lamports: number) => void;
   fetchTransactionHistory: () => void;
+  fetchNonProfits: () => void;
   sendTransaction: ({
     toAddress,
     solAmount,

@@ -1,8 +1,15 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import Colors from '../util/color';
+import {CustomBottomSheetView} from './bottomSheet/BottomSheet';
+import {NonprofitsSheet} from './bottomSheet/NonProfitsSheet';
 
 const OffsetCard = () => {
+  const [visible, setVisible] = useState(false);
+
+  const toggleBottomNavigationView = () => {
+    setVisible(!visible);
+  };
   return (
     <View style={styles.offsetBox}>
       <View style={styles.treeContainer}>
@@ -10,9 +17,15 @@ const OffsetCard = () => {
       </View>
       <View style={styles.offsetContainer}>
         <Text style={styles.offsetText}>Your Footprint is reducing 🔥</Text>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={toggleBottomNavigationView}>
           <Text style={styles.txButton}>Offset</Text>
         </TouchableOpacity>
+
+        <CustomBottomSheetView
+          visible={visible}
+          toggleBottomNavigationView={toggleBottomNavigationView}
+          bottomsheetChild={<NonprofitsSheet />}
+        />
       </View>
     </View>
   );

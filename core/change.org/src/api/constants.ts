@@ -1,5 +1,5 @@
 export class Constants {
-  static apiEndpoint = 'https://api.getchange.io/api/v1/climate';
+  static apiEndpoint = 'https://api.getchange.io/api/v1/';
   private headerPublicKey?: string;
   private headerSecretKey?: string;
 

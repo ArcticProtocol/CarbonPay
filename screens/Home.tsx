@@ -10,6 +10,7 @@ import {CustomBottomSheetView} from '../components/bottomSheet/BottomSheet';
 import {AppsView} from '../components/Apps';
 import {useTransactionStore} from '../store/transaction_store';
 import {NFTSheet} from '../components/bottomSheet/NFTSheet';
+import SendTransaction from '../components/bottomSheet/SendTransactionView';
 
 const Home = () => {
   const [visible, setVisible] = useState(false);
@@ -49,7 +50,9 @@ const Home = () => {
       <CustomBottomSheetView
         visible={visible}
         toggleBottomNavigationView={toggleBottomNavigationView}
-        toggleNFTSheetView={toggleNFTSheet}
+        bottomsheetChild={
+          <SendTransaction toggleNFTSheetView={toggleNFTSheet} />
+        }
       />
       <NFTSheet
         visible={NFTSheetVisible}

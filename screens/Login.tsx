@@ -9,6 +9,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useStore} from '../store/store';
 import {PublicKey} from '@solana/web3.js';
 import {toByteArray} from 'base64-js';
+import ChangeOrg from '../core/change.org/changeorg';
+import {changeAPIPublicKey, changeAPIprivateKey} from '../secret';
 
 const Login = () => {
   const navigation = useNavigation();
@@ -36,8 +38,17 @@ const Login = () => {
     }
     return;
   };
+
+  const chnageAPIInit = () => {
+    ChangeOrg.getInstance.init({
+      publicKey: changeAPIPublicKey,
+      secretKey: changeAPIprivateKey,
+    });
+  };
+
   useEffect(() => {
     checkStorage();
+    chnageAPIInit();
   }, []);
   return (
     <SafeAreaView style={styles.container}>

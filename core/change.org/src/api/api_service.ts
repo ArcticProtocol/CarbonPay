@@ -8,6 +8,8 @@ import {
   CreateOffsetDraftResponse,
   CreateOffsetResponse,
 } from '../models/create_offset_reponse';
+import Nonprofit from '../models/nonprofit';
+import base64 from 'react-native-base64';
 
 export class ApiService {
   private axiosInstance: AxiosInstance;
@@ -22,12 +24,18 @@ export class ApiService {
       );
     }
 
+    const authHeader = base64.encode(
+      `${this.constants.headerPublic}:${this.constants.headerSecret}`,
+    );
     this.axiosInstance = axios.create({
       baseURL: Constants.apiEndpoint,
-      auth: {
-        username: this.constants.headerPublic,
-        password: this.constants.headerSecret,
+      headers: {
+        Authorization: authHeader,
       },
+      // auth: {
+      //   username: this.constants.headerPublic,
+      //   password: this.constants.headerSecret,
+      // },
     });
   }
 
@@ -37,7 +45,10 @@ export class ApiService {
         params: params,
       };
 
-      let result = await this.axiosInstance.get('/crypto_offset/', config);
+      let result = await this.axiosInstance.get(
+        '/climate/crypto_offset/',
+        config,
+      );
       return CreateOffsetDraftResponse.fronJson(result);
     } catch (error) {
       if (error === AxiosError) {
@@ -54,8 +65,39 @@ export class ApiService {
         data: body,
       };
 
-      let result = await this.axiosInstance.post('/crypto_offset/', config);
+      let result = await this.axiosInstance.post(
+        '/climate/crypto_offset/',
+        config,
+      );
       return CreateOffsetResponse.fronJson(result);
+    } catch (error) {
+      if (error === AxiosError) {
+        throw error;
+      } else {
+        console.log({error});
+      }
+    }
+  }
+
+  public async fectchNonProfits() {
+    try {
+      let config: AxiosRequestConfig = {
+        data: {
+          public_key: this.constants.headerPublic,
+          page: 1,
+          limit: 20,
+        },
+      };
+
+      let nonprofits: Nonprofit[] = [];
+
+      let result = await this.axiosInstance.get('/nonprofits/', config);
+
+      result.data.nonprofits.forEach((e: any): void => {
+        nonprofits.push(Nonprofit.fromJson(e));
+      });
+
+      return nonprofits;
     } catch (error) {
       if (error === AxiosError) {
         throw error;

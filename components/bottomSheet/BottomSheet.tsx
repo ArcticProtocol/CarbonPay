@@ -5,13 +5,13 @@ import {SendTransaction} from './SendTransactionView';
 type BottomSheetParams = {
   visible: boolean;
   toggleBottomNavigationView: () => void;
-  toggleNFTSheetView: () => void;
+  bottomsheetChild: React.JSX.Element;
 };
 
 export const CustomBottomSheetView = ({
   visible,
   toggleBottomNavigationView,
-  toggleNFTSheetView,
+  bottomsheetChild,
 }: BottomSheetParams) => {
   return (
     <BottomSheet
@@ -23,7 +23,8 @@ export const CustomBottomSheetView = ({
       //Toggling the visibility state on the clicking out side of the sheet
     >
       <View style={styles.bottomNavigationView}>
-        <SendTransaction toggleNFTSheetView={toggleNFTSheetView} />
+        {bottomsheetChild}
+        {/* <SendTransaction toggleNFTSheetView={toggleNFTSheetView} /> */}
       </View>
     </BottomSheet>
   );

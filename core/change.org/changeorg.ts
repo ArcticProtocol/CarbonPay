@@ -8,17 +8,18 @@ type HeaderInitParams = {
 
 export default class ChangeOrg {
   private static instance: ChangeOrg;
-  private constants: Constants;
-  private apiService: ApiService;
+  private constants?: Constants;
+  private apiService?: ApiService;
 
-  constructor() {
-    this.constants = new Constants();
-    this.apiService = new ApiService(this.constants);
-  }
+  constructor() {}
 
   init({publicKey, secretKey}: HeaderInitParams) {
+    this.constants = new Constants();
+
     this.constants.setPublicKey = publicKey;
     this.constants.setSecretKey = secretKey;
+
+    this.apiService = new ApiService(this.constants);
   }
 
   get api() {
