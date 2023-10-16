@@ -70,7 +70,7 @@ export const useTransactionStore = create<ITransactionStore>((set, get) => ({
     // console.log(transactions.length);
   },
 
-  sendTransaction: async ({toAddress, amount}: any) => {
+  sendTransaction: async ({toAddress, solAmount}: any) => {
     let offsetAddress = '';
 
     let tx = new Transaction();
@@ -78,7 +78,7 @@ export const useTransactionStore = create<ITransactionStore>((set, get) => ({
       SystemProgram.transfer({
         fromPubkey: get().publicKey!,
         toPubkey: toAddress,
-        lamports: amount * LAMPORTS_PER_SOL,
+        lamports: solAmount * LAMPORTS_PER_SOL,
       }),
     );
     let kp = Keypair.fromSecretKey(useStore.getState().privateKey!);
@@ -117,6 +117,6 @@ export type ITransactionStore = {
     solAmount,
   }: {
     toAddress: string;
-    solAmount: BigInt;
+    solAmount: number;
   }) => void;
 };

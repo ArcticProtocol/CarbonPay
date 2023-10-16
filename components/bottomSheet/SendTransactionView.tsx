@@ -12,11 +12,13 @@ import {useTransactionStore} from '../../store/transaction_store';
 
 export const SendTransaction = ({
   toggleNFTSheetView,
+  address,
 }: {
   toggleNFTSheetView: () => void;
+  address: string;
 }) => {
   const [amount, setAmount] = useState('');
-  const [toAddress, setReceiverAddress] = useState('');
+  const [toAddress, setReceiverAddress] = useState(address);
   const [automaticallyOffset, setAutomaticallyOffset] = useState(true);
 
   const {solPriceUSD, sendTransaction} = useTransactionStore();
@@ -33,7 +35,7 @@ export const SendTransaction = ({
     toggleNFTSheetView();
 
     sendTransaction({
-      solAmount: BigInt(parseInt(amount)),
+      solAmount: parseInt(amount, 10),
       toAddress: toAddress,
     });
   };
